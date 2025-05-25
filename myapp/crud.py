@@ -9,7 +9,7 @@ async def create_task(db: AsyncSession, task_data: CreateTask):
     task = Task(**task_data.model_dump())
     db.add(task)
     await db.commit()
-    await db.refresh()
+    # await db.refresh()
     return task
 
 async def get_task(db: AsyncSession, task_id: int):
