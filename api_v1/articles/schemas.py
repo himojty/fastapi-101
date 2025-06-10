@@ -3,7 +3,8 @@ from pydantic import BaseModel, Field, ConfigDict
 
 class ArticleSchema(BaseModel):
     title: str = Field(min_length=3, max_length=40)
-    content: str = Field(min_length=10)
+    body: str = Field(min_length=10)
+    user_id: int
 
 
 class Article(ArticleSchema):
@@ -22,4 +23,4 @@ class ArticleUpdate(ArticleCreate):
 
 class ArticleUpdatePartial(ArticleCreate):
     title: str | None = None
-    content: str | None = None
+    body: str | None = None

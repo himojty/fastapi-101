@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class Article(UserRelationMixin, Base):
     # _user_id_nullable = False
     # _user_id_unique = False
-    _user_back_populates = "posts"
+    _user_back_populates = "articles"
 
     title: Mapped[str] = mapped_column(String(100), unique=True)
     body: Mapped[str] = mapped_column(
