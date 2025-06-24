@@ -1,9 +1,11 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Path, status
+from fastapi import APIRouter, Path, status, Depends
+from sqlalchemy.ext.asyncio import AsyncSession
 
+from core.models import db_helper
 from .schemas import ItemCreate, Item
-
+from . import crud
 
 router = APIRouter(prefix="/items", tags=["Items"])
 
@@ -26,3 +28,10 @@ async def get_item(
 )
 async def create_item(item: ItemCreate):
     return item
+
+
+@router.get("/")
+async def get_items(
+    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+):
+    return await crud.get_items(session=session)
