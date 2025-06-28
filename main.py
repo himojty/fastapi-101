@@ -30,11 +30,5 @@ app.add_middleware(
     # allow_headers=["*"],  # Разрешить все заголовки
 )
 
-
-@app.get("/")
-async def home():
-    return {"message": "Hello world!"}
-
-
 if __name__ == "__main__":
     uvicorn.run(app="main:app", reload=True)
