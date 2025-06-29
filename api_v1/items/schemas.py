@@ -2,8 +2,9 @@ from pydantic import BaseModel
 
 
 class ItemSchema(BaseModel):
-    name: str
+    title: str
     description: str
+    user_id: int
 
 
 class Item(ItemSchema):

@@ -10,6 +10,7 @@ from .mixins import UserRelationMixin
 if TYPE_CHECKING:
     from .article import Article
     from .profile import Profile
+    from .item import Item
 
 
 class User(Base):
@@ -19,3 +20,4 @@ class User(Base):
 
     articles: Mapped[list["Article"]] = relationship(back_populates="user")
     profile: Mapped["Profile"] = relationship(back_populates="user")
+    items: Mapped[list["Item"]] = relationship(back_populates="user")
