@@ -1,10 +1,12 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
+
+from api_v1.users.schemas import UserCreate
 from core.models import User, Profile, Article
 
 
-async def create_user(session: AsyncSession, username: str) -> User:
-    user = User(username=username)
+async def create_user(session: AsyncSession, user_in: UserCreate) -> User:
+    user = User(**user_in.model_dump())
     session.add(user)
     await session.commit()
     return user
@@ -24,7 +26,10 @@ async def create_user_profile(
     bio: str | None = None,
 ) -> Profile:
     profile = Profile(
-        user_id=user_id, first_name=first_name, last_name=last_name, bio=bio
+        user_id=user_id,
+        first_name=first_name,
+        last_name=last_name,
+        bio=bio,
     )
     session.add(profile)
     await session.commit()
