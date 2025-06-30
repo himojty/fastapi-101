@@ -14,9 +14,9 @@ if TYPE_CHECKING:
 
 
 class User(Base):
-    name: Mapped[str] = mapped_column(String(50), unique=True)
+    username: Mapped[str] = mapped_column(String(50), unique=True)
     # email: Mapped[EmailStr] = mapped_column(String(255), unique=True)
-    # password_hash: Mapped[str] = mapped_column(String(512), nullable=False)
+    # password_hash: Mapped[str] = mapped_column(String(512))
 
     articles: Mapped[list["Article"]] = relationship(back_populates="user")
     profile: Mapped["Profile"] = relationship(back_populates="user")
