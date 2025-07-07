@@ -7,7 +7,9 @@ from core.models import User, Profile, Article
 
 async def create_user(session: AsyncSession, user_in: UserCreate) -> User:
     user = User(**user_in.model_dump())
+    user_profile = Profile(user_id=user_in.id)
     session.add(user)
+    session.add(user_profile)
     await session.commit()
     return user
 
@@ -36,7 +38,7 @@ async def create_user_profile(
     return profile
 
 
-async def show_users_with_profiles(session: AsyncSession) -> list[User]:
+async def show_users_with_profiles(session: AsyncSession):
     stmt = select(User).order_by(User.id)
     users = await session.scalars(stmt)
     for user in users:
