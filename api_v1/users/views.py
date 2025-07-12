@@ -11,18 +11,18 @@ from .schemas import User, UserCreate
 router = APIRouter(prefix="/users", tags=["Users"])
 
 
-# @router.get("/me", deprecated=True)
-# async def get_current_user():
-#     return {"user": "current"}
-#
-#
-# @router.get("/{user_id}/", deprecated=True)
-# async def get_user(
-#     user_id: Annotated[
-#         int, Path(..., gt=0, le=1000, description="Must be between 1 and 1000")
-#     ],
-# ):
-#     return {"user": user_id}
+@router.get("/me")
+async def get_current_user():
+    return {"user": "current"}
+
+
+@router.get("/{user_id}/")
+async def get_user(
+    user_id: Annotated[
+        int, Path(..., gt=0, le=1000, description="Must be between 1 and 1000")
+    ],
+):
+    return {"user": user_id}
 
 
 @router.get("/{username}/")
