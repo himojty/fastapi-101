@@ -1,5 +1,16 @@
+FROM python:3.12.6-bookworm
+
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
 WORKDIR /app
 
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-RUN uv init 
+COPY pyproject.toml uv.lock ./
+
+RUN uv sync --locked
+
+COPY . .
+
+CMD ["uv", "run", "main.py"]
